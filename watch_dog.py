@@ -11,7 +11,7 @@ log = logger()
 
 class MyEventHandler(PatternMatchingEventHandler):
     def __init__(self, *, patterns = None, ignore_patterns = None, ignore_directories = False, case_sensitive = False):
-        super().__init__(ignore_patterns=["*/.*", "*mpdf*"], ignore_directories=True)
+        super().__init__(ignore_patterns=["*/.*", "*/*mpdf*"], ignore_directories=True)
         self.file_handle = open(os.getenv('APPEND_LOG'), 'a')
 
     def on_created(self, event: FileSystemEvent) -> None:
