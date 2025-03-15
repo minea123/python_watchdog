@@ -11,3 +11,6 @@ for ip in "${ip_array[@]}"; do
     SSH_SERVER=root@$ip
     rsync -avz --progress --ignore-existing --exclude 'mpdf' $SSH_SERVER:/App/aii_school_prod/storage/app /App/aii_school_prod/storage
 done
+
+sudo chown www-data:www-data  -R /App/aii_school_prod/storage
+sudo chown 755 -R /App/aii_school_prod/storage
