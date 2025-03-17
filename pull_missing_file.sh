@@ -13,4 +13,4 @@ for ip in "${ip_array[@]}"; do
 done
 
 sudo chown www-data:www-data  -R /App/aii_school_prod/storage
-sudo chown 755 -R /App/aii_school_prod/storage
+sudo chmod 755 -R /App/aii_school_prod/storage

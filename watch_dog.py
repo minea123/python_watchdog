@@ -30,8 +30,7 @@ def upload(filePath: str):
                 response = requests.post(f'{server}/api/upload', data=form_data, files=files)
                 response.raise_for_status()
             except Exception as e:
-                log.error(f'Failed to upload to server {server}: {e} {filePath}')
-
+                log.error(f'EXCEPTION: Failed to upload to server {server}: {e} {filePath}')
 class MyEventHandler(PatternMatchingEventHandler):
     def __init__(self, *, patterns = None, ignore_patterns = None, ignore_directories = False, case_sensitive = False):
         super().__init__(ignore_patterns=["*/.*", "*/*mpdf*/*"], ignore_directories=True)
@@ -39,7 +38,13 @@ class MyEventHandler(PatternMatchingEventHandler):
 
     def on_created(self, event: FileSystemEvent) -> None:
         try:
+            file_size = os.path.getsize(event.src_path)
+
+            if file_size <= 0:
+                log.warning('File size is zero byte')
+
             log.info(f'EVENT:CREATE {event.src_path}')
+            log.info(F'FILE_SIZE {os.path.getsize(event.src_path)}')
             self.executor.submit(upload, event.src_path)
         except Exception as ex:
             log.error(f'EXCEPTION: {ex}')
