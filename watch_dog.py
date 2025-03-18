@@ -40,6 +40,7 @@ def upload(filePath: str):
                     continue
                 response = requests.post(f'{server}/api/upload', data=form_data, files=files)
                 response.raise_for_status()
+                log.info('File has been uploaded to {}', server)
             except Exception as e:
                 log.error(f'EXCEPTION: Failed to upload to server {server}: {e} {filePath}')
 
