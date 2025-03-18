@@ -33,7 +33,8 @@ def upload(filePath: str):
 
         for server in servers:
             try:
-                ip = server.split(':')[0]
+                ip = server.split(':')[0].replace('http://', '')
+                
                 if r.exists(f'{ip}:{filePath}'):
                     log.info(f'NOTICE: file already exists on server {ip}')
                     continue
